@@ -3,21 +3,18 @@ let ctx = c.getContext("2d");
 let ctrlPts = [];
 let isClicked = false;
 let clickIdx = -1;
+let aboveIdx = -1;
 
-//결과화면2번째거 실행 코드
-//for(let i=0;i<10;i++){
-//  for(let j=0;j<10;j++){
-//    ctrlPts.push(new THREE.Vector2(50*i,50*j));
-//  }
-//}
+//베이즈커브 결과화면2
+// for(let i=0;i<10;i++){
+//   for(let j=0;j<10;j++){
+//     ctrlPts.push(new THREE.Vector2(50*i,50*j));
+//   }
+// }
 ctrlPts.push(new THREE.Vector2(100, 400));
 ctrlPts.push(new THREE.Vector2(200, 200));
 ctrlPts.push(new THREE.Vector2(300, 200));
 ctrlPts.push(new THREE.Vector2(400, 400));
-ctrlPts.push(new THREE.Vector2(50, 100));
-ctrlPts.push(new THREE.Vector2(150, 450));
-ctrlPts.push(new THREE.Vector2(250, 250));
-ctrlPts.push(new THREE.Vector2(450, 450));
 
 function draw_point(p, color) {
   ctx.fillStyle = color;
@@ -40,15 +37,14 @@ function draw_bezier(ctrlPts) {
     draw_line(ctrlPts[i], ctrlPts[i + 1], "#000000");
 
   for (let i = 0; i < ctrlPts.length; i++)
-  {
-    if(isClicked==true && clickIdx==i){
-      let style = "rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+    if(aboveIdx == i){ //isClicked==true && clickIdx==i 이 조건은 마우스 클릭시 동작하게됨.
+      //let style = "rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
       //draw_point(ctrlPts[i], style);
       draw_point(ctrlPts[i], "red");
     }
     else draw_point(ctrlPts[i], "#000000");
     
-  }
+  
   let bezierPts = [];
   let resolution = 500;//부드럽게 하려면 숫자 늘리면 됨.
   for (let i = 0; i <= resolution; i++) {
@@ -89,6 +85,10 @@ function getMousePos(c, e) {
 }
 c.addEventListener("mousemove", function (e) {
   var mousePos = getMousePos(c, e);
+  aboveIdx = -1;
+  for(let i =0; i<ctrlPts.length; i++)
+    {if(mousePos.distanceTo(ctrlPts[i]) < 10 ) aboveIdx = i;}//현재 마우스 위치가 점과 거리가 10이하라면 색칠
+      
   if (isClicked) {
     ctrlPts[clickIdx].x = mousePos.x;
     ctrlPts[clickIdx].y = mousePos.y;
