@@ -4,6 +4,12 @@ let ctrlPts = [];
 let isClicked = false;
 let clickIdx = -1;
 
+//결과화면2번째거 실행 코드
+//for(let i=0;i<10;i++){
+//  for(let j=0;j<10;j++){
+//    ctrlPts.push(new THREE.Vector2(50*i,50*j));
+//  }
+//}
 ctrlPts.push(new THREE.Vector2(100, 400));
 ctrlPts.push(new THREE.Vector2(200, 200));
 ctrlPts.push(new THREE.Vector2(300, 200));
