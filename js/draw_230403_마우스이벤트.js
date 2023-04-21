@@ -57,7 +57,7 @@ function draw_circle(circleData) {
     
     //원 중심과의 거리로도 색칠할 수 있음.
     //let mouseXY = new THREE.Vector2(mouseX,mouseY);
-    //if(mouseXY.distanceTo(circleData.ctr<=circleData.radius))
+    //if(mouseXY.distanceTo(circleData.ctr)<=circleData.radius)
     //  isFill=true;
     
     ctx.beginPath();
